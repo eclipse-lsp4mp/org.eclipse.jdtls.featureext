@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: JDT.LS Feature Extension Tests
+Bundle-SymbolicName: org.eclipse.jdtls.featureext.test
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Eclipse Foundation
+Bundle-RequiredExecutionEnvironment: JavaSE-21
+Fragment-Host: org.eclipse.jdtls.featureext.core
+Require-Bundle: junit-jupiter-api,
+ junit-jupiter-engine
+Automatic-Module-Name: org.eclipse.jdtls.featureext.test
