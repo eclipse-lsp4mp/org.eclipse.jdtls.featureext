@@ -1,9 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: JDT.LS Feature Extension Core
+Bundle-Name: %pluginName
+Bundle-Vendor: %providerName
+Bundle-Localization: plugin
 Bundle-SymbolicName: org.eclipse.jdtls.featureext.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
-Bundle-Vendor: Eclipse Foundation
 Bundle-RequiredExecutionEnvironment: JavaSE-21
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.core,
