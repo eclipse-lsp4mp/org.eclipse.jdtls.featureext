@@ -53,7 +53,6 @@ ls -la org.eclipse.jdtls.featureext.site/target/repository/
 You should see:
 - `artifacts.jar`
 - `content.jar`
-- `features/` directory
 - `plugins/` directory
 
 ## Project Structure Overview
@@ -221,33 +220,7 @@ mvn wrapper:wrapper
 ./mvnw clean verify  # Unix/Linux/Mac
 mvnw.cmd clean verify  # Windows
 ```
-
-## Next Steps
-
-1. **Read the Documentation**:
-   - [PLAN.md](PLAN.md) - Implementation plan
-   - [ARCHITECTURE.md](ARCHITECTURE.md) - Architecture overview
-   - [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md) - Detailed guide
-
-2. **Explore the Code**:
-   - Start with `org.eclipse.jdtls.featureext.core/src/main/java/`
-   - Look at the test examples in `org.eclipse.jdtls.featureext.test/`
-
-3. **Make Your First Change**:
-   - Add a new class to the core module
-   - Write a test for it
-   - Build and verify: `mvn clean verify`
-
-4. **Set Up CI/CD**:
-   - Push to GitHub
-   - GitHub Actions will automatically build your project
-   - See [CI_CD_GUIDE.md](CI_CD_GUIDE.md) for details
-
-## Getting Help
-
-- **Build Issues**: Check [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md)
-- **Architecture Questions**: See [ARCHITECTURE.md](ARCHITECTURE.md)
-- **CI/CD Setup**: Read [CI_CD_GUIDE.md](CI_CD_GUIDE.md)
+ s
 
 ## Useful Commands Reference
 
