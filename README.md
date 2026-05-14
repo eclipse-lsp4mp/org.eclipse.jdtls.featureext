@@ -83,23 +83,16 @@ mvnw.cmd clean verify        # Windows
 
 #### VS Code
 1. Open the root directory
-2. Install "Extension Pack for Java"
-3. Maven projects will be detected automatically
+2. Maven projects will be detected automatically
 
 ## Project Configuration
 
 - **Java Version**: 21
-- **Eclipse Platform**: 2025-06
-- **JDT.LS Version**: 1.48.0
-- **Tycho Version**: 4.0.0
+- **Eclipse Platform**: 2025-09
+- **JDT.LS Version**: 1.58.0
+- **Tycho Version**: 5.0.2
 - **Packaging**: OSGi bundles with Eclipse Tycho
 
-## Documentation
-
-- [PLAN.md](PLAN.md) - Detailed implementation plan
-- [ARCHITECTURE.md](ARCHITECTURE.md) - Architecture diagrams and design
-- [IMPLEMENTATION_GUIDE.md](IMPLEMENTATION_GUIDE.md) - Step-by-step implementation guide
-- [CI_CD_GUIDE.md](CI_CD_GUIDE.md) - CI/CD configuration guide
 
 ## Contributing
 
@@ -114,17 +107,3 @@ mvnw.cmd clean verify        # Windows
 
 This project follows Eclipse Foundation licensing standards.
 
-## Support
-
-For issues and questions:
-- Check the documentation in the `docs/` directory
-- Review the planning documents (PLAN.md, ARCHITECTURE.md)
-- Open an issue in the project repository
-
-## Build Status
-
-![Build Status](https://github.com/YOUR_USERNAME/org.eclipse.jdtls.featureext/workflows/Build/badge.svg)
-
-## Acknowledgments
-
-Project structure inspired by [eclipse-lsp4mp/lsp4mp](https://github.com/eclipse-lsp4mp/lsp4mp).
