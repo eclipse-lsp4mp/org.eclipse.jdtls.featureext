@@ -9,5 +9,6 @@ Bundle-RequiredExecutionEnvironment: JavaSE-21
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.core,
  org.eclipse.jdt.ls.core
-Export-Package: org.eclipse.jdtls.featureext.core
+Export-Package: org.eclipse.jdtls.featureext.core,
+ org.eclipse.jdtls.featureext.core.logging
 Automatic-Module-Name: org.eclipse.jdtls.featureext.core
