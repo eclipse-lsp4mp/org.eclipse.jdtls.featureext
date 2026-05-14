@@ -2,7 +2,7 @@
 <?pde version="3.8"?>
 <target name="org.eclipse.jdtls.featureext" sequenceNumber="1">
     <locations>
-        <!-- Eclipse Platform 2025-09 -->
+        <!-- Eclipse Platform 2025-12 -->
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
             <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
             <unit id="org.eclipse.core.runtime" version="0.0.0" />
@@ -24,12 +24,12 @@
 			<unit id="org.eclipse.m2e.maven.runtime" version="0.0.0" />
 			<unit id="org.eclipse.buildship.core" version="0.0.0" />
 			<unit id="org.eclipse.lsp4e" version="0.0.0" />
-			<unit id="org.apache.commons.io" version="0.0.0" />
+			<unit id="org.apache.commons.commons-io" version="0.0.0" />
 			<unit id="org.junit" version="0.0.0" />
 			<unit id="org.eclipse.lsp4e" version="0.0.0" />
 			<unit id="org.eclipse.lsp4j" version="0.0.0" />
 			<unit id="org.eclipse.lsp4j.jsonrpc" version="0.0.0" />
-            <repository location="https://download.eclipse.org/releases/2025-09"/>
+            <repository location="https://download.eclipse.org/releases/2025-12"/>
         </location>
         
         <!-- JDT Language Server 1.58.0 -->
@@ -47,7 +47,7 @@
             <unit id="junit-platform-engine" version="0.0.0"/>
             <unit id="junit-platform-launcher" version="0.0.0"/>
             <unit id="org.opentest4j" version="0.0.0"/>
-            <repository location="https://download.eclipse.org/releases/2025-09/"/>
+            <repository location="https://download.eclipse.org/releases/2025-12/"/>
         </location>
     </locations>
 </target>
