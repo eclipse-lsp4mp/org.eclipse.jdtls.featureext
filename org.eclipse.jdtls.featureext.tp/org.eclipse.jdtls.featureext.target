@@ -2,7 +2,7 @@
 <?pde version="3.8"?>
 <target name="org.eclipse.jdtls.featureext" sequenceNumber="1">
     <locations>
-        <!-- Eclipse Platform 2024-06 -->
+        <!-- Eclipse Platform 2025-09 -->
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
             <unit id="org.eclipse.platform.feature.group" version="0.0.0"/>
             <unit id="org.eclipse.core.runtime" version="0.0.0" />
@@ -32,7 +32,7 @@
             <repository location="https://download.eclipse.org/releases/2025-09"/>
         </location>
         
-        <!-- JDT Language Server 1.43.0 -->
+        <!-- JDT Language Server 1.58.0 -->
         <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
             <unit id="org.eclipse.jdt.ls.core" version="0.0.0"/>
             <repository location="https://download.eclipse.org/jdtls/milestones/1.58.0/repository"/>
@@ -52,4 +52,3 @@
     </locations>
 </target>
 
-<!-- Made with Bob -->
