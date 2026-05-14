@@ -88,7 +88,7 @@ mvnw.cmd clean verify        # Windows
 ## Project Configuration
 
 - **Java Version**: 21
-- **Eclipse Platform**: 2025-09
+- **Eclipse Platform**: 2025-12
 - **JDT.LS Version**: 1.58.0
 - **Tycho Version**: 5.0.2
 - **Packaging**: OSGi bundles with Eclipse Tycho
