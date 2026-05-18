@@ -6,9 +6,7 @@ Bundle-Localization: plugin
 Bundle-SymbolicName: org.eclipse.jdtls.featureext.core;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-RequiredExecutionEnvironment: JavaSE-21
-Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.jdt.core,
- org.eclipse.jdt.ls.core
 Export-Package: org.eclipse.jdtls.featureext.core,
- org.eclipse.jdtls.featureext.core.logging
+ org.eclipse.jdtls.featureext.core.logging,
+ org.eclipse.jdtls.featureext.commons.codeaction
 Automatic-Module-Name: org.eclipse.jdtls.featureext.core
