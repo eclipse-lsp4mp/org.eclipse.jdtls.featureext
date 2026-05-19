@@ -14,5 +14,3 @@ public class CoreModuleTest {
         assertTrue(true, "Placeholder test should pass");
     }
 }
-
-// Made with Bob

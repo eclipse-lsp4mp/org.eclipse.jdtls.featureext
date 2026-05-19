@@ -332,5 +332,3 @@ class LoggingTest {
         assertNotNull(consoleOutput);
     }
 }
-
-// Made with Bob

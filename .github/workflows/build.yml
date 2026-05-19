@@ -42,5 +42,3 @@ jobs:
             **/target/surefire-reports/
             **/target/failsafe-reports/
           retention-days: 7
-
-# Made with Bob

@@ -268,5 +268,3 @@ public class FeatureExtLogger {
         getLogger().finest(message);
     }
 }
-
-// Made with Bob
