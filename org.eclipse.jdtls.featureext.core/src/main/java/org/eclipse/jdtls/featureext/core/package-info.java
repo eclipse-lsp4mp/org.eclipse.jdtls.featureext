@@ -7,5 +7,3 @@
  * @since 1.0
  */
 package org.eclipse.jdtls.featureext.core;
-
-// Made with Bob

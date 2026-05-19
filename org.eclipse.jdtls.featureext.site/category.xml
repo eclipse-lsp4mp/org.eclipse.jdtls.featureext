@@ -15,5 +15,3 @@
    <category-def name="core" label="jdt.ls feature extension" />
    <category-def name="sdk" label="jdt.ls feature extension (Developer Resources)" />
 </site>
-
-<!-- Made with Bob -->
