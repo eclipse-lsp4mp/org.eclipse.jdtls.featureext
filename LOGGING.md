@@ -1,6 +1,6 @@
 # Logging Guide for JDT.LS Feature Extension
 
-This project uses `java.util.logging` with a custom wrapper that supports **property-based configuration** for both console and file logging.
+This project uses `java.util.logging` with a custom wrapper that supports **property-based configuration** for console logging.
 
 ## Quick Start
 
@@ -56,12 +56,6 @@ Logging is controlled entirely through `logging.properties` file. **No code chan
 # Console Logging
 featureext.logging.console.enabled=true
 featureext.logging.console.level=INFO
-
-# File Logging
-featureext.logging.file.enabled=true
-featureext.logging.file.level=ALL
-featureext.logging.file.size=10485760    # 10MB
-featureext.logging.file.count=5          # 5 rotating files
 ```
 
 ### Log Levels
@@ -72,7 +66,7 @@ From most to least verbose:
 - `FINER` - Detailed tracing
 - `FINE` - Tracing information
 - `CONFIG` - Configuration messages
-- `INFO` - Informational messages (default for console)
+- `INFO` - Informational messages (default)
 - `WARNING` - Warning messages
 - `SEVERE` - Error messages
 - `OFF` - Disable logging
@@ -80,92 +74,57 @@ From most to least verbose:
 ## Common Configurations
 
 ### 1. Production Mode (Default)
-Minimal console output, detailed file logging:
+Standard console output:
 
 ```properties
 featureext.logging.console.enabled=true
 featureext.logging.console.level=INFO
-featureext.logging.file.enabled=true
-featureext.logging.file.level=ALL
 ```
 
 **Result:**
 - Console: Shows INFO, WARNING, SEVERE
-- File: Logs everything (ALL levels)
 
 ### 2. Debug Mode
-Verbose logging to both console and file:
+Verbose logging to console:
 
 ```properties
 featureext.logging.console.enabled=true
 featureext.logging.console.level=FINE
-featureext.logging.file.enabled=true
-featureext.logging.file.level=ALL
 ```
 
 **Result:**
 - Console: Shows FINE and above (debug info visible)
-- File: Logs everything
 
-### 3. Console Only
-No file logging:
-
-```properties
-featureext.logging.console.enabled=true
-featureext.logging.console.level=INFO
-featureext.logging.file.enabled=false
-```
-
-**Result:**
-- Console: Shows INFO and above
-- File: Disabled
-
-### 4. File Only
-No console output (useful for background services):
-
-```properties
-featureext.logging.console.enabled=false
-featureext.logging.file.enabled=true
-featureext.logging.file.level=ALL
-```
-
-**Result:**
-- Console: Disabled
-- File: Logs everything
-
-### 5. Errors Only
-Only log errors to console, everything to file:
+### 3. Errors Only
+Only log errors:
 
 ```properties
 featureext.logging.console.enabled=true
 featureext.logging.console.level=SEVERE
-featureext.logging.file.enabled=true
-featureext.logging.file.level=INFO
 ```
 
 **Result:**
 - Console: Shows only SEVERE errors
-- File: Logs INFO and above
 
-### 6. Disable All Logging
+### 4. Warnings and Errors
+Production mode with minimal output:
+
+```properties
+featureext.logging.console.enabled=true
+featureext.logging.console.level=WARNING
+```
+
+**Result:**
+- Console: Shows WARNING and SEVERE only
+
+### 5. Disable All Logging
 
 ```properties
 featureext.logging.console.enabled=false
-featureext.logging.file.enabled=false
 ```
 
 **Result:**
 - No logging at all
-
-## Log File Location
-
-Logs are written to: `~/.jdtls-featureext/logs/jdtls-featureext.log`
-
-With rotation:
-- `jdtls-featureext.log` (current)
-- `jdtls-featureext.log.1` (previous)
-- `jdtls-featureext.log.2`
-- ... up to configured count
 
 ## Changing Configuration at Runtime
 
@@ -178,19 +137,13 @@ import java.util.logging.Level;
 // Enable/disable console
 FeatureExtLogger.setConsoleEnabled(true);
 
-// Enable/disable file
-FeatureExtLogger.setFileEnabled(true);
-
-// Change levels
+// Change level
 FeatureExtLogger.setConsoleLevel(Level.FINE);
-FeatureExtLogger.setFileLevel(Level.ALL);
 
 // Configure everything at once
 FeatureExtLogger.configure(
     true,        // console enabled
-    true,        // file enabled
-    Level.INFO,  // console level
-    Level.ALL    // file level
+    Level.INFO   // console level
 );
 
 // Check current configuration
@@ -247,8 +200,7 @@ private static final Logger LOGGER = FeatureExtLogger.getLogger(MyClass.class);
 
 1. Check if logging is enabled in `logging.properties`
 2. Check log level settings
-3. Verify log file location: `~/.jdtls-featureext/logs/`
-4. Check file permissions
+3. Verify console output is not being redirected
 
 ### Override Default Configuration
 
@@ -258,8 +210,6 @@ Create `~/.jdtls-featureext/logging.properties` with your settings:
 # Your custom configuration
 featureext.logging.console.enabled=true
 featureext.logging.console.level=FINE
-featureext.logging.file.enabled=true
-featureext.logging.file.level=ALL
 ```
 
 This will override the bundled configuration.
@@ -315,9 +265,9 @@ public class MyFeature {
 ## Summary
 
 ✅ **Property-based configuration** - No code changes needed  
-✅ **Console and file logging** - Enable/disable independently  
+✅ **Console logging** - Enable/disable with configurable levels  
 ✅ **Configurable log levels** - Control verbosity  
-✅ **Rotating log files** - Automatic log rotation  
 ✅ **User overrides** - Place config in `~/.jdtls-featureext/`  
 ✅ **Automatic initialization** - Just use `getLogger()`  
-✅ **Thread-safe** - Safe for concurrent use
+✅ **Thread-safe** - Safe for concurrent use  
+✅ **Lightweight** - No file I/O overhead

@@ -12,12 +12,7 @@
  *******************************************************************************/
 package org.eclipse.jdtls.featureext.core.logging;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.logging.ConsoleHandler;
-import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
@@ -25,7 +20,7 @@ import java.util.logging.Logger;
 
 /**
  * Centralized logging utility for JDT.LS Feature Extension.
- * Logs to both console and file with configurable levels.
+ * Logs to console with configurable levels.
  */
 public class FeatureExtLogger {
 
@@ -36,10 +31,6 @@ public class FeatureExtLogger {
     // Configuration properties
     private static final String PROP_CONSOLE_ENABLED = "featureext.logging.console.enabled";
     private static final String PROP_CONSOLE_LEVEL = "featureext.logging.console.level";
-    private static final String PROP_FILE_ENABLED = "featureext.logging.file.enabled";
-    private static final String PROP_FILE_LEVEL = "featureext.logging.file.level";
-    private static final String PROP_FILE_SIZE = "featureext.logging.file.size";
-    private static final String PROP_FILE_COUNT = "featureext.logging.file.count";
 
     /**
      * Initialize the logger with configuration from properties file.
@@ -50,68 +41,34 @@ public class FeatureExtLogger {
             return;
         }
 
-        try {
-            // Load configuration
-            java.util.Properties props = loadConfiguration();
+        // Load configuration
+        java.util.Properties props = loadConfiguration();
 
-            // Remove default handlers
-            Logger rootLogger = Logger.getLogger("");
-            for (var handler : rootLogger.getHandlers()) {
-                rootLogger.removeHandler(handler);
-            }
-
-            // Set logger level
-            LOGGER.setLevel(Level.ALL);
-            LOGGER.setUseParentHandlers(false);
-
-            // Console Handler (if enabled)
-            boolean consoleEnabled = Boolean.parseBoolean(
-                props.getProperty(PROP_CONSOLE_ENABLED, "true"));
-            
-            if (consoleEnabled) {
-                Level consoleLevel = parseLevel(
-                    props.getProperty(PROP_CONSOLE_LEVEL, "INFO"));
-                
-                ConsoleHandler consoleHandler = new ConsoleHandler();
-                consoleHandler.setLevel(consoleLevel);
-                consoleHandler.setFormatter(new CustomFormatter());
-                LOGGER.addHandler(consoleHandler);
-            }
-
-            // File Handler (if enabled)
-            boolean fileEnabled = Boolean.parseBoolean(
-                props.getProperty(PROP_FILE_ENABLED, "true"));
-            
-            if (fileEnabled) {
-                Level fileLevel = parseLevel(
-                    props.getProperty(PROP_FILE_LEVEL, "ALL"));
-                int fileSize = Integer.parseInt(
-                    props.getProperty(PROP_FILE_SIZE, "10485760")); // 10MB
-                int fileCount = Integer.parseInt(
-                    props.getProperty(PROP_FILE_COUNT, "5"));
-
-                // Create log directory
-                Path logDir = getLogDirectory();
-                Files.createDirectories(logDir);
-
-                Path logFile = logDir.resolve("jdtls-featureext.log");
-                FileHandler fileHandler = new FileHandler(
-                    logFile.toString(), fileSize, fileCount, true);
-                fileHandler.setLevel(fileLevel);
-                fileHandler.setFormatter(new CustomFormatter());
-                LOGGER.addHandler(fileHandler);
-                
-                if (consoleEnabled) {
-                    LOGGER.info("FeatureExtLogger initialized. Log file: " + logFile);
-                }
-            }
-
-            initialized = true;
-
-        } catch (IOException e) {
-            System.err.println("Failed to initialize logger: " + e.getMessage());
-            e.printStackTrace();
+        // Remove default handlers
+        Logger rootLogger = Logger.getLogger("");
+        for (var handler : rootLogger.getHandlers()) {
+            rootLogger.removeHandler(handler);
         }
+
+        // Set logger level
+        LOGGER.setLevel(Level.ALL);
+        LOGGER.setUseParentHandlers(false);
+
+        // Console Handler (if enabled)
+        boolean consoleEnabled = Boolean.parseBoolean(
+            props.getProperty(PROP_CONSOLE_ENABLED, "true"));
+        
+        if (consoleEnabled) {
+            Level consoleLevel = parseLevel(
+                props.getProperty(PROP_CONSOLE_LEVEL, "INFO"));
+            
+            ConsoleHandler consoleHandler = new ConsoleHandler();
+            consoleHandler.setLevel(consoleLevel);
+            consoleHandler.setFormatter(new CustomFormatter());
+            LOGGER.addHandler(consoleHandler);
+        }
+
+        initialized = true;
     }
 
     /**
@@ -128,21 +85,7 @@ public class FeatureExtLogger {
                 props.load(stream);
                 return props;
             }
-        } catch (IOException e) {
-            // Ignore, will try next location
-        }
-
-        // Try to load from user home directory
-        try {
-            Path userConfig = Paths.get(System.getProperty("user.home"),
-                ".jdtls-featureext", "logging.properties");
-            if (Files.exists(userConfig)) {
-                try (var stream = Files.newInputStream(userConfig)) {
-                    props.load(stream);
-                    return props;
-                }
-            }
-        } catch (IOException e) {
+        } catch (Exception e) {
             // Ignore, will use defaults
         }
 
@@ -159,15 +102,6 @@ public class FeatureExtLogger {
         } catch (IllegalArgumentException e) {
             return Level.INFO;
         }
-    }
-
-    /**
-     * Get the log directory path.
-     * Uses .jdtls-featureext in user's home directory.
-     */
-    private static Path getLogDirectory() {
-        String userHome = System.getProperty("user.home");
-        return Paths.get(userHome, ".jdtls-featureext", "logs");
     }
 
     /**
@@ -203,17 +137,6 @@ public class FeatureExtLogger {
     }
 
     /**
-     * Enable or disable file logging.
-     */
-    public static void setFileEnabled(boolean enabled) {
-        for (var handler : LOGGER.getHandlers()) {
-            if (handler instanceof FileHandler) {
-                handler.setLevel(enabled ? Level.ALL : Level.OFF);
-            }
-        }
-    }
-
-    /**
      * Set the console log level.
      */
     public static void setConsoleLevel(Level level) {
@@ -225,26 +148,12 @@ public class FeatureExtLogger {
     }
 
     /**
-     * Set the file log level.
-     */
-    public static void setFileLevel(Level level) {
-        for (var handler : LOGGER.getHandlers()) {
-            if (handler instanceof FileHandler) {
-                handler.setLevel(level);
-            }
-        }
-    }
-
-    /**
      * Configure logging with specific options.
-     *
+     * 
      * @param consoleEnabled Enable console logging
-     * @param fileEnabled Enable file logging
      * @param consoleLevel Console log level (if enabled)
-     * @param fileLevel File log level (if enabled)
      */
-    public static void configure(boolean consoleEnabled, boolean fileEnabled,
-                                  Level consoleLevel, Level fileLevel) {
+    public static void configure(boolean consoleEnabled, Level consoleLevel) {
         if (!initialized) {
             initialize();
         }
@@ -252,13 +161,11 @@ public class FeatureExtLogger {
         for (var handler : LOGGER.getHandlers()) {
             if (handler instanceof ConsoleHandler) {
                 handler.setLevel(consoleEnabled ? consoleLevel : Level.OFF);
-            } else if (handler instanceof FileHandler) {
-                handler.setLevel(fileEnabled ? fileLevel : Level.OFF);
             }
         }
 
-        LOGGER.info(String.format("Logging configured - Console: %s (%s), File: %s (%s)",
-                consoleEnabled, consoleLevel, fileEnabled, fileLevel));
+        LOGGER.info(String.format("Logging configured - Console: %s (%s)",
+                consoleEnabled, consoleLevel));
     }
 
     /**
@@ -271,10 +178,6 @@ public class FeatureExtLogger {
         for (var handler : LOGGER.getHandlers()) {
             if (handler instanceof ConsoleHandler) {
                 config.append("  Console: ")
-                      .append(handler.getLevel() != Level.OFF ? "ENABLED" : "DISABLED")
-                      .append(" (Level: ").append(handler.getLevel()).append(")\n");
-            } else if (handler instanceof FileHandler) {
-                config.append("  File: ")
                       .append(handler.getLevel() != Level.OFF ? "ENABLED" : "DISABLED")
                       .append(" (Level: ").append(handler.getLevel()).append(")\n");
             }

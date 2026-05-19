@@ -16,15 +16,9 @@ import org.eclipse.jdtls.featureext.core.logging.FeatureExtLogger;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.io.TempDir;
 
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,7 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Test cases for the logging system.
- * Verifies console and file logging functionality.
+ * Verifies console logging functionality.
  */
 class LoggingTest {
 
@@ -40,9 +34,6 @@ class LoggingTest {
     private ByteArrayOutputStream consoleOutput;
     private PrintStream originalOut;
     private PrintStream originalErr;
-
-    @TempDir
-    Path tempDir;
 
     @BeforeEach
     void setUp() {
@@ -275,9 +266,7 @@ class LoggingTest {
         // Test configuration method
         FeatureExtLogger.configure(
             true,           // console enabled
-            true,           // file enabled
-            Level.INFO,     // console level
-            Level.ALL       // file level
+            Level.INFO      // console level
         );
         
         logger.info("Configuration test message");
@@ -297,53 +286,10 @@ class LoggingTest {
         String config = FeatureExtLogger.getConfiguration();
         
         assertNotNull(config, "Configuration string should not be null");
-        assertTrue(config.contains("Logging Configuration"), 
+        assertTrue(config.contains("Logging Configuration"),
                    "Configuration should contain header");
-        assertTrue(config.contains("Console") || config.contains("File"),
-                   "Configuration should contain handler info");
-    }
-
-    @Test
-    void testLogFileCreation() throws IOException {
-        // Log some messages to ensure file is created
-        logger.info("Test message 1");
-        logger.warning("Test message 2");
-        logger.severe("Test message 3");
-        
-        // Give logger time to write
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-        
-        // Check if log file exists
-        Path logDir = Paths.get(System.getProperty("user.home"), 
-                                ".jdtls-featureext", "logs");
-        Path logFile = logDir.resolve("jdtls-featureext.log");
-        
-        if (Files.exists(logFile)) {
-            assertTrue(Files.isRegularFile(logFile), 
-                       "Log file should be a regular file");
-            assertTrue(Files.size(logFile) > 0, 
-                       "Log file should not be empty");
-            
-            // Read and verify content
-            List<String> lines = Files.readAllLines(logFile);
-            assertFalse(lines.isEmpty(), "Log file should contain lines");
-            
-            // Check if any of our test messages are in the file
-            String content = String.join("\n", lines);
-            boolean hasTestMessage = content.contains("Test message 1") ||
-                                    content.contains("Test message 2") ||
-                                    content.contains("Test message 3");
-            
-            assertTrue(hasTestMessage, 
-                       "Log file should contain at least one test message");
-        } else {
-            // File logging might be disabled in test environment
-            System.out.println("Log file not found - file logging may be disabled");
-        }
+        assertTrue(config.contains("Console"),
+                   "Configuration should contain console handler info");
     }
 
     @Test
