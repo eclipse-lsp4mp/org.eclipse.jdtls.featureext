@@ -21,10 +21,17 @@ public class CodeActionData {
 
 	private String id;
 
+	/**
+	 * No argument constructor
+	 */
 	public CodeActionData() {
 		this(null);
 	}
 
+	/**
+	 * Constructor with ICodeActionId
+	 * @param id
+	 */
 	public CodeActionData(ICodeActionId id) {
 		setCodeActionId(id);
 	}
