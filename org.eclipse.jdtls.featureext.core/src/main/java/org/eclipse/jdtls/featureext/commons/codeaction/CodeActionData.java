@@ -16,6 +16,10 @@ import java.util.Objects;
 
 /**
  * Represents the data that all code actions have.
+ * 
+ * This class is a shared code between https://github.com/eclipse-lsp4jakarta/lsp4jakarta
+ * and https://github.com/eclipse-lsp4mp/lsp4mp repositories
+ * and intentionally kept unchanged for migration purposes into the common project feature-ext.
  */
 public class CodeActionData {
 
