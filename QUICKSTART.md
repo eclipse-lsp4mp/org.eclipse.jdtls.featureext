@@ -220,7 +220,7 @@ mvn wrapper:wrapper
 ./mvnw clean verify  # Unix/Linux/Mac
 mvnw.cmd clean verify  # Windows
 ```
- s
+
 
 ## Useful Commands Reference
 
