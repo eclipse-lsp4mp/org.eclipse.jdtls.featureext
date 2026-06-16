@@ -12,6 +12,7 @@
  *******************************************************************************/
 package org.eclipse.jdtls.featureext.core.logging;
 
+import java.util.Properties;
 import java.util.logging.ConsoleHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Level;
@@ -42,7 +43,7 @@ public class FeatureExtLogger {
         }
 
         // Load configuration
-        java.util.Properties props = loadConfiguration();
+        Properties props = loadConfiguration();
 
         // Remove default handlers
         Logger rootLogger = Logger.getLogger("");
@@ -75,8 +76,8 @@ public class FeatureExtLogger {
      * Load configuration from properties file.
      * Looks for logging.properties in classpath, then user home, then uses defaults.
      */
-    private static java.util.Properties loadConfiguration() {
-        java.util.Properties props = new java.util.Properties();
+    private static Properties loadConfiguration() {
+        Properties props = new java.util.Properties();
         
         // Try to load from classpath
         try (var stream = FeatureExtLogger.class.getClassLoader()
