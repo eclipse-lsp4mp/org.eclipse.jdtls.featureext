@@ -1,0 +1,11 @@
+[*]
+indent_size = 2
+indent_style = space
+
+[*.xml]
+indent_size = 4
+indent_style = space
+
+[*.java]
+indent_size = 4
+indent_style = tab
