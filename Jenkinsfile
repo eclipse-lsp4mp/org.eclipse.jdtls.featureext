@@ -30,7 +30,7 @@ pipeline {
       steps {
         sshagent(['projects-storage.eclipse.org-bot-ssh']) {
           sh '''
-            VERSION=`grep -o '[0-9].*[0-9]' org.eclipse.jdtls.featureext/org.eclipse.jdtls.featureext.core/target/maven-archiver/pom.properties`
+            VERSION=`grep -o '[0-9].*[0-9]' org.eclipse.jdtls.featureext.core/target/maven-archiver/pom.properties`
             targetDir=/home/data/httpd/download.eclipse.org/lsp4mp/jdtls-featureext/snapshots/$VERSION
             ssh genie.lsp4mp@projects-storage.eclipse.org rm -rf $targetDir
             ssh genie.lsp4mp@projects-storage.eclipse.org mkdir -p $targetDir
